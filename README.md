@@ -1,6 +1,6 @@
 # TCP Remote shell wordlist attack (Direct bind)
 
-This program will automatically try a list of commands on a TCP direct shell and display the results
+**This program will automatically try a list of commands on a TCP direct shell and display the results**
 
 ![fe36c8d9e21edad138a8e4b231d6ab56 (1)](https://user-images.githubusercontent.com/92279236/139542496-2c49a72c-000f-4043-a9ac-37accdd950d9.gif)
 
