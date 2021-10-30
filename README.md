@@ -4,7 +4,8 @@ This program will automatically try a list of commands on a TCP direct shell and
 
 ![fe36c8d9e21edad138a8e4b231d6ab56 (1)](https://user-images.githubusercontent.com/92279236/139542496-2c49a72c-000f-4043-a9ac-37accdd950d9.gif)
 
-**Arguments**
+**Arguments:**
+
 ```
 usage: tcp-shell-wordlist.py [-h] [-ip TCP_IP] [-port TCP_PORT]
                              [-w WORDLIST_FILE] [-errstr NOTFOUND_MSG]
@@ -19,8 +20,10 @@ optional arguments:
   -delay DELAY          Delay after sending command
 ```
 
-**Installation**
+**Installation:**
+
 To install simply do "pip install -r requirements.txt"
 
-**Credits**
+**Credits:**
+
 Default wordlist taken from https://github.com/yzf750/custom-fuzzing/blob/master/linux-commands-merged.txt
