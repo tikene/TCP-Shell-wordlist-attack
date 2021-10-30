@@ -1,9 +1,10 @@
 # TCP Remote shell wordlist attack (Direct bind)
 
-This program will automatically try commands on a target TCP direct shell and display the result
+This program will automatically try a list of commands on a TCP direct shell and display the results
 
-List of arguments:
+https://user-images.githubusercontent.com/92279236/139542369-808b8dea-1d91-4186-8df5-0105790cf641.mp4
 
+**Arguments**
 ```
 usage: tcp-shell-wordlist.py [-h] [-ip TCP_IP] [-port TCP_PORT]
                              [-w WORDLIST_FILE] [-errstr NOTFOUND_MSG]
@@ -18,6 +19,8 @@ optional arguments:
   -delay DELAY          Delay after sending command
 ```
 
+**Installation**
 To install simply do "pip install -r requirements.txt"
 
+**Credits**
 Default wordlist taken from https://github.com/yzf750/custom-fuzzing/blob/master/linux-commands-merged.txt
