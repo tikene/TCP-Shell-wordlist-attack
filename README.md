@@ -5,11 +5,17 @@ This program will automatically try commands on a target TCP direct shell and di
 List of arguments:
 
 ```
-  -ip -> Target IP
-  -port -> Target port
-  -w -> Wordlist file to read from (default: linux-commands-merged.txt)
-  -errstr -> Uknown command string to match (default: No such command)
-  -delay -> Delay after every sent command (default: 0.25). Increasing this value might be necessary if there's a high ping or a cooldown
+usage: tcp-shell-wordlist.py [-h] [-ip TCP_IP] [-port TCP_PORT]
+                             [-w WORDLIST_FILE] [-errstr NOTFOUND_MSG]
+                             [-delay DELAY]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -ip TCP_IP            *Target ip
+  -port TCP_PORT        *Target port
+  -w WORDLIST_FILE      List of commands to try
+  -errstr NOTFOUND_MSG  Console uknown command string
+  -delay DELAY          Delay after sending command
 ```
 
 To install simply do "pip install -r requirements.txt"
